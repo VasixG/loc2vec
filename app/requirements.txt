@@ -1,0 +1,7 @@
+torch
+numpy
+matplotlib
+pillow
+gdal
+psycopg2-binary
+scikit-learn
