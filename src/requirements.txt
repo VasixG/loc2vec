@@ -1,0 +1,12 @@
+torch
+pillow
+scikit-learn
+geopandas
+matplotlib
+numpy
+osmnx
+shapely
+Pillow
+srai[osm]
+pyyaml
+geopy

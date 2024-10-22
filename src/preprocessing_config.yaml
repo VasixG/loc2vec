@@ -1,0 +1,30 @@
+location: "Moscow, Russia"
+grid_spacing: 1000
+poi_tags:
+  amenity: 
+    - school
+    # - hospital
+    # - restaurant
+    # - cafe
+    # - bank
+  railway: 
+    - rail
+    - subway
+  highway: 
+    - motorway
+    # - trunk
+    # - primary
+tag_groups:
+  - 
+    - amenity_school
+    # - amenity_hospital
+    # - amenity_restaurant
+    # - amenity_cafe
+    # - amenity_bank
+  -
+    - railway_rail
+    - railway_subway
+  -
+    - highway_motorway
+    # - highway_trunk
+    # - highway_primary
