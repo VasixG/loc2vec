@@ -1,15 +1,10 @@
 FROM python:3.9-slim
 
-WORKDIR /app
+WORKDIR /src
 
 COPY . .
 
-RUN apt-get update && apt-get install -y \
-    gdal-bin \
-    libspatialite7 \
-    libsqlite3-mod-spatialite \
-    spatialite-bin \
-    && pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 RUN chmod +x entrypoint.sh
 
