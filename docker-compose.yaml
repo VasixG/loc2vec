@@ -3,9 +3,9 @@ version: '3.8'
 services:
   app:
     build:
-      context: /app
+      context: /src
       dockerfile: Dockerfile
-    container_name: app
+    container_name: src
     ports:
       - "80:80"
     restart: unless-stopped
