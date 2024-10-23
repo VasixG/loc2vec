@@ -52,7 +52,7 @@ pip install -r requirements.txt
 
 ### **With CMD**
 
-1. Install dependecies
+1. Install dependecies:
 ```bash
 pip install -r requirements.txt
 ```
@@ -66,7 +66,6 @@ python src/training.py --config training_config.yaml
 ```
 
 ## **Preprocessing configuration Parameters**
-## **Preprocessing Configuration Parameters**
 
 | Parameter      | Type   | Default          | Description                                                                 |
 |----------------|--------|------------------|-----------------------------------------------------------------------------|
