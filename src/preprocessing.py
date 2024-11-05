@@ -66,6 +66,7 @@ def generate_mesh(area_gdf, grid_spacing=1000):
     """
     area_proj = area_gdf.to_crs(epsg=32637)
     minx, miny, maxx, maxy = area_proj.total_bounds
+    minx, miny, maxx, maxy = 414000, 6150000, 427000, 6200000
 
     x_coords = np.arange(minx, maxx, grid_spacing)
     y_coords = np.arange(miny, maxy, grid_spacing)
@@ -75,7 +76,7 @@ def generate_mesh(area_gdf, grid_spacing=1000):
 
     grid_points = gpd.GeoDataFrame(geometry=gpd.points_from_xy(x_flat, y_flat), crs=area_proj.crs)
     grid_squares = grid_points.copy()
-    square_size = 500  # in meters
+    square_size = 300  # in meters
     grid_squares['geometry'] = grid_squares.apply(
         lambda row: box(
             row.geometry.x - square_size / 2,

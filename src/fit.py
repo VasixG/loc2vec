@@ -1,4 +1,5 @@
 import torch
+import matplotlib.pyplot as plt
 
 
 def fit(train_loader, val_loader, model, loss_fn, optimizer, scheduler, n_epochs, cuda, log_interval, metrics=[],
@@ -10,9 +11,9 @@ def fit(train_loader, val_loader, model, loss_fn, optimizer, scheduler, n_epochs
     val_losses = []
 
     for epoch in range(start_epoch, n_epochs):
-        scheduler.step()
 
         train_loss, metrics = train_epoch(train_loader, model, loss_fn, optimizer, cuda, log_interval, metrics)
+        scheduler.step()
         train_losses.append(train_loss)
 
         message = 'Epoch: {}/{}. Train set: Average loss: {:.4f}'.format(epoch + 1, n_epochs, train_loss)
@@ -63,6 +64,32 @@ def train_epoch(train_loader, model, loss_fn, optimizer, cuda, log_interval, met
     return total_loss, metrics
 
 
+def plot_channels_separately(image, title_prefix):
+    """
+    Plot each channel of a given image as a separate subplot.
+    """
+    channels = image.shape[0]
+    fig, axs = plt.subplots(1, channels, figsize=(15, 5))
+    fig.suptitle(title_prefix)
+
+    for i in range(channels):
+        axs[i].imshow(image[i].cpu().numpy(), cmap='gray')
+        axs[i].set_title(f"Channel {i + 1}")
+        axs[i].axis('off')
+
+    plt.show()
+
+
+def plot_anchor_positive_negative(anchor, positive, negative, batch_idx):
+    """
+    Plot anchor, closest positive, and farthest negative examples,
+    displaying each channel separately.
+    """
+    plot_channels_separately(anchor, f"Batch {batch_idx} - Anchor Example Channels")
+    plot_channels_separately(positive, f"Batch {batch_idx} - Closest Positive Channels")
+    plot_channels_separately(negative, f"Batch {batch_idx} - Farthest Negative Channels")
+
+
 def test_epoch(val_loader, model, loss_fn, cuda, metrics=[]):
     with torch.no_grad():
         for metric in metrics:
@@ -77,6 +104,18 @@ def test_epoch(val_loader, model, loss_fn, cuda, metrics=[]):
             anchor_output, positive_output, negative_output = model(anchor, positive, negative)
             loss = loss_fn(anchor_output, positive_output, negative_output)
             val_loss += loss.item()
+
+        pos_distances = torch.norm(anchor_output - positive_output, dim=1)
+        neg_distances = torch.norm(anchor_output - negative_output, dim=1)
+        closest_pos_idx = torch.argmin(pos_distances).item()
+        farthest_neg_idx = torch.argmax(neg_distances).item()
+
+        anchor_example = anchor[closest_pos_idx]
+        closest_positive_example = positive[closest_pos_idx]
+        farthest_negative_example = negative[farthest_neg_idx]
+
+        plot_anchor_positive_negative(anchor_example, closest_positive_example,
+                                      farthest_negative_example, batch_idx)
 
         val_loss /= len(val_loader)
         return val_loss, metrics

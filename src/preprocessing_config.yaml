@@ -1,30 +1,122 @@
 location: "Moscow, Russia"
 grid_spacing: 1000
+
 poi_tags:
   amenity: 
     - school
-    # - hospital
-    # - restaurant
-    # - cafe
-    # - bank
-  railway: 
-    - rail
-    - subway
-  highway: 
-    - motorway
-    # - trunk
-    # - primary
+#     - hospital
+#     - restaurant
+#     - cafe
+#     - bank
+#     - library
+#     - parking
+#     - university
+#     - police
+#     - fire_station
+#     - post_office
+#     - bar
+#     - cinema
+#     - theatre
+#     - pharmacy
+#     - marketplace
+#     - community_centre
+#     - kindergarten
+#     - charging_station
+#   railway: 
+#     - rail
+#     - subway
+#     - tram
+#     - station
+#     - halt
+#     - level_crossing
+#     - platform
+#   highway: 
+#     - motorway
+#     - trunk
+#     - primary
+#     - secondary
+#     - tertiary
+#     - residential
+#     - service
+#     - footway
+#     - pedestrian
+#     - cycleway
+#     - track
+#     - unclassified
+#     - path
+
 tag_groups:
-  - 
-    - amenity_school
-    # - amenity_hospital
-    # - amenity_restaurant
-    # - amenity_cafe
-    # - amenity_bank
-  -
-    - railway_rail
-    - railway_subway
-  -
-    - highway_motorway
-    # - highway_trunk
-    # - highway_primary
+#   - 
+#     - amenity_school
+#     - amenity_hospital
+#     - amenity_restaurant
+#     - amenity_cafe
+#   - 
+#     - amenity_bank
+#     - amenity_library
+#     - amenity_parking
+#     - amenity_university
+#   - 
+#     - amenity_police
+#     - amenity_fire_station
+#     - amenity_post_office
+#     - amenity_bar
+#   -
+#     - amenity_cinema
+#     - amenity_theatre
+#     - amenity_pharmacy
+#     - amenity_marketplace
+#   -
+#     - amenity_community_centre
+#     - amenity_kindergarten
+#     - amenity_charging_station
+#   -
+#     - railway_rail
+#     - railway_subway
+#     - railway_tram
+#     - railway_station
+#   -
+#     - railway_halt
+#     - railway_level_crossing
+#     - railway_platform
+#   -
+#     - highway_motorway
+#     - highway_trunk
+#     - highway_primary
+#   -
+#     - highway_secondary
+#     - highway_tertiary
+#     - highway_residential
+#   -
+#     - highway_service
+#     - highway_footway
+#     - highway_pedestrian
+#   -
+#     - highway_cycleway
+#     - highway_track
+#     - highway_unclassified
+#   -
+#     - amenity_restaurant
+#     - amenity_cafe
+#     - amenity_bar
+#     - amenity_cinema
+#   -
+#     - railway_station
+#     - railway_platform
+#     - railway_subway
+#   -
+#     - highway_motorway
+#     - highway_trunk
+#     - highway_path
+#   -
+#     - amenity_school
+#     - amenity_university
+#     - amenity_library
+#   -
+#     - amenity_pharmacy
+#     - amenity_hospital
+#     - amenity_kindergarten
+#   -
+#     - amenity_marketplace
+#     - amenity_community_centre
+#     - amenity_post_office

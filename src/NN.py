@@ -3,12 +3,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-import torch
 from torch.utils.data import Dataset
 import os
 from PIL import Image
 import numpy as np
-import torch.nn.functional as F
+from torchvision import models
 
 
 class TripletDataset(Dataset):
@@ -76,62 +75,27 @@ class TripletDataset(Dataset):
 
 
 class EmbeddingNet(nn.Module):
-    def __init__(self, n_channels):
+    def __init__(self, n_channels, embedding_len=64):
         super(EmbeddingNet, self).__init__()
 
-        self.conv_net = nn.Sequential(
-            nn.Conv2d(n_channels, 64, kernel_size=7, stride=2, padding=3),
-            nn.BatchNorm2d(64),
-            nn.PReLU(),
-            nn.MaxPool2d(2),
+        self.base_model = models.efficientnet_b0(pretrained=True)
 
-            nn.Conv2d(64, 128, kernel_size=5, stride=2, padding=2),
-            nn.BatchNorm2d(128),
-            nn.PReLU(),
-            nn.MaxPool2d(2),
-
-            nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(256),
-            nn.PReLU(),
-            nn.MaxPool2d(2),
-
-            nn.Conv2d(256, 512, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(512),
-            nn.PReLU(),
-            nn.MaxPool2d(2),
+        self.base_model.features[0][0] = nn.Conv2d(
+            n_channels, 32, kernel_size=3, stride=2, padding=1, bias=False,
         )
 
-        self.fc = nn.Sequential(
-            nn.Linear(512 * 4 * 4, 1024),
-            nn.BatchNorm1d(1024),
-            nn.PReLU(),
-            nn.Dropout(p=0.3),
-
-            nn.Linear(1024, 512),
+        self.base_model.classifier = nn.Sequential(
+            nn.Linear(self.base_model.classifier[1].in_features, 512),
             nn.BatchNorm1d(512),
             nn.PReLU(),
             nn.Dropout(p=0.3),
-
-            nn.Linear(512, 256),
-            nn.BatchNorm1d(256),
+            nn.Linear(512, embedding_len),
+            nn.BatchNorm1d(embedding_len),
             nn.PReLU(),
-            nn.Dropout(p=0.3),
-
-            nn.Linear(256, 128),
-            nn.BatchNorm1d(128),
-            nn.PReLU(),
-            nn.Dropout(p=0.3),
-
-            nn.Linear(128, 64),
-            nn.BatchNorm1d(64),
-            nn.PReLU()
         )
 
     def forward(self, x):
-        x = self.conv_net(x)
-        x = x.view(x.size(0), -1)
-        output = self.fc(x)
-        return output
+        return self.base_model(x)
 
     def get_embedding(self, x):
         return self.forward(x)

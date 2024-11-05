@@ -62,7 +62,7 @@ python src/preprocessing.py --config preprocessing_config.yaml
 ```
 3. Run the training step:
 ```bash
-python src/training.py --config training_config.yaml
+python src/train.py --config training_config.yaml
 ```
 
 ## **Preprocessing configuration Parameters**
