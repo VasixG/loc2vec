@@ -81,7 +81,7 @@ def main(config_file):
     with open(config_file, 'r') as file:
         config = yaml.safe_load(file)
 
-    coord_with_data = get_lat_lon_from_directories('data')
+    coord_with_data = get_lat_lon_from_directories(config.data_dir)
 
     triplets = []
 
