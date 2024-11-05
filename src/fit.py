@@ -30,7 +30,7 @@ def fit(train_loader, val_loader, model, loss_fn, optimizer, scheduler, n_epochs
             message += '\t{}: {}'.format(metric.name(), metric.value())
 
         if (epoch + 1) % 5 == 0:
-            checkpoint_path = f"checkpoints/checkpoint_epoch_{epoch + 1}.pt"
+            checkpoint_path = f"checkpoint_epoch_{epoch + 1}.pt"
             torch.save({
                 'epoch': epoch + 1,
                 'model_state_dict': model.state_dict(),
