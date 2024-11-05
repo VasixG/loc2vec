@@ -1,5 +1,6 @@
-n_channels: 3                 
-batch_size: 4              
+data_dir: '/kaggle/input/loc2vectrain/data'
+n_channels: 17                
+batch_size: 32             
 lr: 0.001                     
 margin: 0.05                
 n_epochs: 3                   
