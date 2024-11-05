@@ -29,6 +29,18 @@ def fit(train_loader, val_loader, model, loss_fn, optimizer, scheduler, n_epochs
         for metric in metrics:
             message += '\t{}: {}'.format(metric.name(), metric.value())
 
+        if (epoch + 1) % 5 == 0:
+            checkpoint_path = f"checkpoints/checkpoint_epoch_{epoch + 1}.pt"
+            torch.save({
+                'epoch': epoch + 1,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'scheduler_state_dict': scheduler.state_dict(),
+                'train_loss': train_losses,
+                'val_loss': val_losses,
+            }, checkpoint_path)
+            print(f"Checkpoint saved at {checkpoint_path}")
+
         print(message)
 
     return train_losses, val_losses
