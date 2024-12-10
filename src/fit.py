@@ -117,17 +117,18 @@ def test_epoch(val_loader, model, loss_fn, cuda, metrics=[]):
             loss = loss_fn(anchor_output, positive_output, negative_output)
             val_loss += loss.item()
 
-        pos_distances = torch.norm(anchor_output - positive_output, dim=1)
-        neg_distances = torch.norm(anchor_output - negative_output, dim=1)
-        closest_pos_idx = torch.argmin(pos_distances).item()
-        farthest_neg_idx = torch.argmax(neg_distances).item()
+        # pos_distances = torch.norm(anchor_output - positive_output, dim=1)
+        # neg_distances = torch.norm(anchor_output - negative_output, dim=1)
+        # closest_pos_idx = torch.argmin(pos_distances).item()
+        # farthest_neg_idx = torch.argmax(neg_distances).item()
 
-        anchor_example = anchor[closest_pos_idx]
-        closest_positive_example = positive[closest_pos_idx]
-        farthest_negative_example = negative[farthest_neg_idx]
+        # anchor_example = anchor[closest_pos_idx]
+        # closest_positive_example = positive[closest_pos_idx]
+        # farthest_negative_example = negative[farthest_neg_idx]
 
-        plot_anchor_positive_negative(anchor_example, closest_positive_example,
-                                      farthest_negative_example, batch_idx)
+        # plot_anchor_positive_negative(anchor_example, closest_positive_example,
+        #                               farthest_negative_example, batch_idx)
 
         val_loss /= len(val_loader)
+        print(val_loss)
         return val_loss, metrics
